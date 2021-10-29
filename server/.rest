@@ -1,0 +1,11 @@
+GET http://localhost:5000/isLoggedIn
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXNzd29yZCI6ImxldG1laW4iLCJpYXQiOjE2MzU0NTAzNTF9.SwFwxJlS08shMyUHao2rLQUcDx93ZJYN2N13LP0pqWA
+
+###
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+   "password": "letmein"
+}
