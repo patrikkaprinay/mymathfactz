@@ -39,7 +39,7 @@ const Problem = ({ num, first, second, userPut, solution }) => {
               name="result"
               data-num={num}
               onKeyDown={(e) => enterPressed(e)}
-              className="px-2 w-20 rounded-lg border border-gray-400 focus:border-green-500 text-green-600 placeholder-green-600 focus:outline-none focus:ring-2 focus:ring-green-200"
+              className="px-2 w-20 rounded-lg border border-gray-400 focus:border-green-500 text-gray-800 placeholder-green-600 focus:outline-none focus:ring-2 focus:ring-green-200"
             />
           )}
         </div>

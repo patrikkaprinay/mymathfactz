@@ -46,6 +46,7 @@ const Letter = () => {
       setLetter(data.letter)
       setProblems(data.problems)
       setLoaded(true)
+      document.querySelector(`input[data-num="${data.problems[0].id}"]`).focus()
     }
     getFromDatabase()
   }, [id])

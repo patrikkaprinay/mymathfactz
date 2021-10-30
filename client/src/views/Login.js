@@ -43,15 +43,26 @@ const Login = (props) => {
       // document.cookie = 'token=' + data.token + ';Expires=' + date
       props.history.push('/')
     } else {
-      setError('Password is not correct')
+      setError('Password is not correct!')
     }
   }
 
   return (
-    <div className="flex justify-center items-center h-screen flex-col">
-      <h1>Password:</h1>
+    <div
+      className="flex justify-start items-center h-screen flex-col text-white"
+      style={{ backgroundColor: 'rgb(30,30,46)' }}
+    >
+      <img
+        src="/images/factz.png"
+        alt=""
+        style={{ width: '800px' }}
+        className=" my-28"
+      />
       <input
         type="password"
+        className=" py-2 px-3 outline-none text-gray-700 text-xl text-center"
+        style={{ background: 'none', color: 'white' }}
+        placeholder="Enter Your Password"
         value={password}
         onChange={(e) => {
           setPassword(e.target.value)
@@ -60,11 +71,16 @@ const Login = (props) => {
           if (event.key === 'Enter') {
             logMein()
           }
+          setError('')
         }}
-        className="bg-gray-200 text-white-200"
       />
-      <p>{error}</p>
-      <button onClick={logMein}>Login</button>
+      <p className="text-red-400">{error}</p>
+      <button
+        onClick={logMein}
+        className="rounded-md bg-purple-500 px-3 py-2 hover:bg-purple-700 duration-150 mt-6"
+      >
+        Login
+      </button>
     </div>
   )
 }

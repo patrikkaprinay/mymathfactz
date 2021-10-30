@@ -75,6 +75,10 @@ app.post('/submit', (req, res) => {
   )
 })
 
+app.post('/sendEmail', (req, res) => {
+  res.json(req.body)
+})
+
 app.get('/letters', (req, res) => {
   connection.query('SELECT * FROM letters', (err, rows, fields) => {
     if (err) throw err
