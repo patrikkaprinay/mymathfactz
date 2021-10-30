@@ -40,7 +40,9 @@ app.post('/submit', (req, res) => {
   const letter = req.body.letter
   const time = req.body.time
   const userSolutions = req.body.result
-  let right = (wrong = blank = 0)
+  let incorrect = 0
+  let correct = 0
+  let blank = 0
   const wrongArray = []
   connection.query(
     `SELECT * FROM problems WHERE letter="${letter}" ORDER BY id ASC`,
@@ -48,18 +50,21 @@ app.post('/submit', (req, res) => {
       if (err) throw err
       userSolutions.forEach((element, index) => {
         if (element == rows[index].solution && element != '') {
-          right++
+          correct++
         } else if (element === '') {
           blank++
         } else {
-          wrong++
-          wrongArray.push(rows[index])
+          incorrect++
+          const wrongSolution = {
+            userPut: element,
+            problem: rows[index],
+          }
+          wrongArray.push(wrongSolution)
         }
       })
-      res.json({ right, blank, wrong, wrongArray, time })
+      res.json({ correct, blank, incorrect, wrongArray, time })
     }
   )
-  // res.json({ msg: req.body })
 })
 
 app.get('/letters', (req, res) => {

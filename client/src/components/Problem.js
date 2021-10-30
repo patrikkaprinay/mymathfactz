@@ -1,4 +1,4 @@
-const Problem = ({ num, first, second }) => {
+const Problem = ({ num, first, second, userPut, solution }) => {
   const enterPressed = (e) => {
     if (e.key === 'Enter') {
       const id = parseInt(e.target.dataset.num)
@@ -28,13 +28,16 @@ const Problem = ({ num, first, second }) => {
           />
         </div>
         <div className="flex flex-col space-y-2">
-          <input
-            type="number"
-            name="result"
-            data-num={num}
-            onKeyDown={(e) => enterPressed(e)}
-            className="px-2 w-20 rounded-lg border border-green-500 text-green-600 placeholder-green-600 focus:outline-none focus:ring-2 focus:ring-green-200"
-          />
+          {userPut != null && <p className="text-xl">{userPut}</p>}
+          {userPut == null && (
+            <input
+              type="number"
+              name="result"
+              data-num={num}
+              onKeyDown={(e) => enterPressed(e)}
+              className="px-2 w-20 rounded-lg border border-green-500 text-green-600 placeholder-green-600 focus:outline-none focus:ring-2 focus:ring-green-200"
+            />
+          )}
         </div>
       </div>
     </div>
