@@ -43,7 +43,6 @@ const Letter = () => {
       const res = await fetch(`http://localhost:5000/p/${id}`)
 
       const data = await res.json()
-      console.log(data)
       setLetter(data.letter)
       setProblems(data.problems)
       setLoaded(true)
@@ -87,7 +86,7 @@ const Letter = () => {
         <div style={{ backgroundColor: `#${letter.color}` }}>
           <div className="flex justify-evenly items-center py-8">
             <div>
-              <div className="bg-white flex flex-row p-4 text-4xl rounded-lg">
+              <div className="bg-black text-white flex flex-row p-4 text-4xl rounded-xl">
                 <p>{('0' + Math.floor((time / 60) % 60)).slice(-2)}:</p>
                 <p>{('0' + Math.floor(time % 60)).slice(-2)}</p>
               </div>
@@ -116,7 +115,7 @@ const Letter = () => {
           name="problemsForm"
           className="flex items-center flex-col mb-10"
         >
-          <div className="flex justify-center flex-wrap">
+          <div className="flex justify-center flex-wrap mt-4">
             {problems.map((p) => (
               <Problem
                 num={p.id}
@@ -128,6 +127,7 @@ const Letter = () => {
           </div>
           <input type="hidden" name="letter" value={id} />
           <input type="hidden" name="time" value={time} />
+          <input type="hidden" name="date" value={new Date()} />
           <button
             type="submit"
             className="bg-blue-500 duration-150 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-auto mt-6"

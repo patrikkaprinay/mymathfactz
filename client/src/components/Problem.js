@@ -21,21 +21,25 @@ const Problem = ({ num, first, second, userPut, solution }) => {
           <span className="text-3xl">{second}</span>
           <hr
             style={{
-              backgroundColor: '#fff',
-              borderTop: '2px dashed #8c8b8b',
+              borderTop: '2px solid #8c8b8b',
             }}
             className="mb-2"
           />
         </div>
         <div className="flex flex-col space-y-2">
-          {userPut != null && <p className="text-xl">{userPut}</p>}
+          {userPut != null && (
+            <div className="flex justify-end flex-row">
+              <p className="text-2xl text-red-600 mr-2">{userPut}</p>
+              <p className="text-2xl text-green-700">{solution}</p>
+            </div>
+          )}
           {userPut == null && (
             <input
               type="number"
               name="result"
               data-num={num}
               onKeyDown={(e) => enterPressed(e)}
-              className="px-2 w-20 rounded-lg border border-green-500 text-green-600 placeholder-green-600 focus:outline-none focus:ring-2 focus:ring-green-200"
+              className="px-2 w-20 rounded-lg border border-gray-400 focus:border-green-500 text-green-600 placeholder-green-600 focus:outline-none focus:ring-2 focus:ring-green-200"
             />
           )}
         </div>

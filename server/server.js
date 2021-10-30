@@ -62,7 +62,15 @@ app.post('/submit', (req, res) => {
           wrongArray.push(wrongSolution)
         }
       })
-      res.json({ correct, blank, incorrect, wrongArray, time })
+      res.json({
+        correct,
+        blank,
+        incorrect,
+        wrongArray,
+        time,
+        date: req.body.date,
+        letter,
+      })
     }
   )
 })

@@ -51,17 +51,18 @@ const Home = () => {
             style={{ width: '900px' }}
           />
           <div
-            className="cursor-pointer mx-auto px-3 py-2 mt-4 bg-red-200 rounded-md w-max"
+            className="cursor-pointer mx-auto px-3 py-2 mt-4 rounded-md w-max"
+            style={{ backgroundColor: '#47aadb' }}
             onClick={logOut}
           >
             Logout
           </div>
-          <span className="mt-2 md:text-7xl text-3xl flex justify-center text-white">
-            Pick a practice.
+          <span className="my-2 md:text-7xl text-3xl flex justify-center text-white">
+            Choose your practice
           </span>
         </div>
 
-        <div className="p-8 flex justify-center mt-4 flex-wrap flex-row">
+        <div className="p-8 flex justify-center mt-4 flex-wrap flex-row w-3/4 mx-auto">
           {letters.map((letter) => {
             return (
               <div className="p-2" key={letter.id}>
