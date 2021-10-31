@@ -31,6 +31,7 @@ const Home = () => {
       const data = await res.json()
       setLetters(data.letters)
       setLoaded(true)
+      document.title = `The Factz`
     }
     getLetters()
   }, [history])
