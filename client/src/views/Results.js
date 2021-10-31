@@ -6,23 +6,16 @@ const Results = () => {
   const location = useLocation()
   const results = location.state.data
   const [email, setEmail] = useState('')
-  const [error, setError] = useState('')
+  const [info, setInfo] = useState({
+    text: '',
+    status: 0,
+  })
+
   const [name, setName] = useState('')
 
   const formatDate = (date) => {
     const notFormated = new Date(date)
     return notFormated.toLocaleDateString('en-US')
-  }
-
-  const formatTime = (time) => {
-    var mins = ~~((time % 3600) / 60)
-    var secs = ~~time % 60
-
-    var ret = ''
-
-    ret += '' + (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '')
-    ret += '' + secs
-    return ret
   }
 
   const validateEmail = (email) => {
@@ -35,22 +28,29 @@ const Results = () => {
     if (validateEmail(email)) {
       if (name !== '') {
         const resData = results
-        resData.time = formatTime(results.time)
         resData.date = formatDate(results.date)
         const res = await fetch('http://localhost:5000/sendEmail', {
           method: 'POST',
           headers: {
             'Content-type': 'Application/json',
           },
-          body: JSON.stringify({ email, resData }),
+          body: JSON.stringify({ email, resData, name }),
         })
-        const data = await res.json()
-        console.log(data)
+        if (res.status === 200) {
+          setInfo({ text: 'Email sent successfully.', status: 0 })
+          const button = document.querySelector('#sendEmailButton')
+
+          button.disabled = true
+          button.classList.add('bg-gray-600')
+          button.classList.remove('bg-blue-500')
+          button.classList.remove('hover:bg-blue-700')
+          document.querySelector('#sendEmailText').disabled = true
+        }
       } else {
-        setError('Please set your name')
+        setInfo({ text: 'Please set your name!', status: 1 })
       }
     } else {
-      setError('Email is not correct')
+      setInfo({ text: 'Email is not correct!', status: 1 })
     }
   }
 
@@ -87,7 +87,7 @@ const Results = () => {
           />
         </div>
         <div className="text-2xl">
-          <p>Time: {formatTime(results.time)}</p>
+          <p>Time: {results.time}</p>
           <p>Correct: {results.correct}</p>
           <p>Incorrect: {results.incorrect}</p>
           <p>Left blank: {results.blank}</p>
@@ -113,22 +113,48 @@ const Results = () => {
         )}
         <div className="mt-10">
           <div>
-            <p className="text-red-600 mb-2">{error}</p>
+            <p
+              className={`${
+                info.status === 1 ? 'text-red-600' : 'text-green-700'
+              } mb-2`}
+            >
+              {info.text}
+            </p>
             <input
               type="email"
               className="py-2 px-4 mr-2 rounded-full focus:outline-none "
               placeholder="Enter email here"
               onChange={(e) => setEmail(e.target.value)}
+              id="sendEmailText"
               value={email}
             />
             <button
               onClick={sendEmail}
+              id="sendEmailButton"
               className="bg-blue-500 duration-150 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
             >
               Send Email
             </button>
           </div>
           <div className="flex flex-row justify-center gap-2 mt-6">
+            <button
+              onClick={() => window.print()}
+              className="bg-blue-500 duration-150 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex flex-row items-center gap-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5 4v3H4a2 2 0 00-2 2v3a2 2 0 002 2h1v2a2 2 0 002 2h6a2 2 0 002-2v-2h1a2 2 0 002-2V9a2 2 0 00-2-2h-1V4a2 2 0 00-2-2H7a2 2 0 00-2 2zm8 0H7v3h6V4zm0 8H7v4h6v-4z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Print
+            </button>
             <Link to="/">
               <button className="bg-blue-500 duration-150 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-auto flex flex-row items-center gap-1">
                 <svg

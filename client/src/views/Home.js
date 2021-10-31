@@ -58,7 +58,7 @@ const Home = () => {
             Logout
           </div>
           <span className="my-2 md:text-7xl text-3xl flex justify-center text-white">
-            Choose your practice
+            Choose your practice.
           </span>
         </div>
 

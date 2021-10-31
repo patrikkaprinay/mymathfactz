@@ -46,7 +46,11 @@ const Letter = () => {
       setLetter(data.letter)
       setProblems(data.problems)
       setLoaded(true)
-      document.querySelector(`input[data-num="${data.problems[0].id}"]`).focus()
+      setTimeout(() => {
+        document
+          .querySelector(`input[data-num="${data.problems[0].id}"]`)
+          .focus()
+      }, 200)
     }
     getFromDatabase()
   }, [id])
@@ -85,9 +89,9 @@ const Letter = () => {
     authorized && (
       <div>
         <div style={{ backgroundColor: `#${letter.color}` }}>
-          <div className="flex justify-evenly items-center py-8">
+          <div className="flex justify-evenly items-center py-8 flex-col md:flex-row">
             <div>
-              <div className="bg-black text-white flex flex-row p-4 text-4xl rounded-xl">
+              <div className="bg-black text-white flex flex-row p-4 text-4xl rounded-xl ">
                 <p>{('0' + Math.floor((time / 60) % 60)).slice(-2)}:</p>
                 <p>{('0' + Math.floor(time % 60)).slice(-2)}</p>
               </div>
