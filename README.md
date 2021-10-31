@@ -1,6 +1,6 @@
 # **MyMathFactz**
 
-![alt text](https://github.com/patrikkaprinay/mymathfactz/blob/main/client/public/images/factz.png?raw=true)
+![The Factz Logo](https://github.com/patrikkaprinay/mymathfactz/blob/main/client/public/images/factz.png?raw=true)
 
 ## **What is MyMathFactz?**
 
