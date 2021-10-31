@@ -45,13 +45,16 @@ const Letter = () => {
       const data = await res.json()
       setLetter(data.letter)
       setProblems(data.problems)
+      setTimeout(() => {
+        const firstInput = document.querySelector(
+          `input[data-num="${data.problems[0].id}"]`
+        )
+        if (firstInput) {
+          firstInput.focus()
+        }
+      }, 100)
       setLoaded(true)
       document.title = `The Factz - Problem ${data.letter.letter.toUpperCase()}`
-      setTimeout(() => {
-        document
-          .querySelector(`input[data-num="${data.problems[0].id}"]`)
-          .focus()
-      }, 200)
     }
     getFromDatabase()
   }, [id])
