@@ -7,6 +7,15 @@ const Problem = ({ num, first, second, userPut, solution }) => {
         next.focus()
       }
       e.preventDefault()
+    } else if (e.key === 'Backspace') {
+      const id = parseInt(e.target.dataset.num)
+      const previous = document.querySelector(
+        'input[data-num="' + (id - 1) + '"]'
+      )
+      if (previous && e.target.value === '') {
+        previous.focus()
+        e.preventDefault()
+      }
     }
   }
   return (
