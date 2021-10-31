@@ -90,7 +90,7 @@ app.post('/sendEmail', (req, res) => {
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'patrik.kaprinay@gmail.com',
+      user: process.env.GMAIL_EMAIL,
       pass: process.env.GMAIL_PASS,
     },
   })
@@ -132,8 +132,8 @@ app.post('/sendEmail', (req, res) => {
   `
 
   var mailOptions = {
-    from: 'patrik.kaprinay@gmail.com',
-    to: 'kpty.dev@yahoo.com',
+    from: process.env.GMAIL_EMAIL,
+    to: data.email,
     subject: `Paper ${problemData.letter.toUpperCase()} - ${data.name}`,
     html: mailText,
   }
