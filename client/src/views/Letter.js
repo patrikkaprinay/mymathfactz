@@ -15,7 +15,7 @@ const Letter = () => {
   useEffect(() => {
     const ifLoggedin = async () => {
       // Check if the user is logged in on website load
-      const res = await fetch('http://localhost:5000/isLoggedIn', {
+      const res = await fetch('/api/isLoggedIn', {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -40,7 +40,7 @@ const Letter = () => {
 
   useEffect(() => {
     const getFromDatabase = async () => {
-      const res = await fetch(`http://localhost:5000/p/${id}`)
+      const res = await fetch(`/api/p/${id}`)
 
       const data = await res.json()
       setLetter(data.letter)
@@ -72,7 +72,7 @@ const Letter = () => {
       formattedForm[form[i]['name']] = form[i]['value']
     }
     formattedForm.result = results
-    const res = await fetch('http://localhost:5000/submit', {
+    const res = await fetch('/api/submit', {
       method: 'POST',
       headers: {
         'Content-type': 'Application/json',

@@ -29,7 +29,7 @@ const Results = () => {
       if (name !== '') {
         const resData = results
         resData.date = formatDate(results.date)
-        const res = await fetch('http://localhost:5000/sendEmail', {
+        const res = await fetch('/api/sendEmail', {
           method: 'POST',
           headers: {
             'Content-type': 'Application/json',

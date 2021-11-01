@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const ifLoggedin = async () => {
       // Check if the user is logged in on website load
-      const res = await fetch('http://localhost:5000/isLoggedIn', {
+      const res = await fetch('/api/isLoggedIn', {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -27,7 +27,7 @@ const Home = () => {
     ifLoggedin()
 
     const getLetters = async () => {
-      const res = await fetch('http://localhost:5000/letters')
+      const res = await fetch('/api/letters')
       const data = await res.json()
       setLetters(data.letters)
       setLoaded(true)

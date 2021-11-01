@@ -8,7 +8,7 @@ const Login = (props) => {
   useEffect(() => {
     const ifLoggedin = async () => {
       // Check if the user is logged in on website load
-      const res = await fetch('http://localhost:5000/isLoggedIn', {
+      const res = await fetch('/api/isLoggedIn', {
         method: 'GET',
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -23,7 +23,7 @@ const Login = (props) => {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const logMein = async () => {
-    const res = await fetch('http://localhost:5000/login', {
+    const res = await fetch('/api/login', {
       method: 'POST',
       headers: {
         'Content-type': 'Application/json',
