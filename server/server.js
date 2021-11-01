@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const path = require('path')
 const cors = require('cors')
 const app = express()
 const jwt = require('jsonwebtoken')
@@ -17,11 +18,9 @@ connection.connect()
 app.use(cors())
 app.use(express.json())
 
-app.get('/', (req, res) => {
-  res.json({ headers: req.cookies })
-})
+app.use(express.static(path.join(__dirname, 'build')))
 
-app.get('/p/:letter', (req, res) => {
+app.get('/api/p/:letter', (req, res) => {
   connection.query(
     `SELECT * FROM letters WHERE letter='${req.params.letter}'`,
     (err, rows, fields) => {
@@ -37,7 +36,7 @@ app.get('/p/:letter', (req, res) => {
   )
 })
 
-app.post('/submit', (req, res) => {
+app.post('/api/submit', (req, res) => {
   const letter = req.body.letter
   const userSolutions = req.body.result
   let incorrect = 0
@@ -86,7 +85,7 @@ app.post('/submit', (req, res) => {
   )
 })
 
-app.post('/sendEmail', (req, res) => {
+app.post('/api/sendEmail', (req, res) => {
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -147,14 +146,14 @@ app.post('/sendEmail', (req, res) => {
   })
 })
 
-app.get('/letters', (req, res) => {
+app.get('/api/letters', (req, res) => {
   connection.query('SELECT * FROM letters', (err, rows, fields) => {
     if (err) throw err
     res.json({ letters: rows })
   })
 })
 
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   if (req.body.password == process.env.PASSWORD) {
     const token = jwt.sign(
       {
@@ -168,12 +167,18 @@ app.post('/login', (req, res) => {
   }
 })
 
-app.get('/isLoggedIn', (req, res) => {
+app.get('/api/isLoggedIn', (req, res) => {
   const gotToken = req.headers.authorization.split(' ')[1]
   jwt.verify(gotToken, process.env.ACCESS_TOKEN_SECRET, (err, pass) => {
     if (err) return res.json({ auth: false })
     res.json({ auth: true })
   })
 })
+
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+  })
+}
 
 app.listen(process.env.PORT)
